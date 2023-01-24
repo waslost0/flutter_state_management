@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:statefulapp_tut/api_provider.dart';
+import 'package:statefulapp_tut/date_time_widget.dart';
+import 'package:statefulapp_tut/fake_api.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: ApiProvider(
+        api: Api(),
+        child: const HomePage(),
+      ),
     );
   }
 }
@@ -27,22 +33,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String title = "Title";
+  ValueKey _textKey = const ValueKey<String?>(null);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(ApiProvider.of(context).api.dateAndTime ?? ""),
       ),
       body: GestureDetector(
-        onTap: () {
+        onTap: () async {
+          final api = ApiProvider.of(context).api;
+          var dateAndTime = await api.getDateAndTime();
           setState(() {
-            title = DateTime.now().toIso8601String();
+            _textKey = ValueKey(dateAndTime);
           });
         },
-        child: Container(
-          color: Colors.red,
+        child: SizedBox.expand(
+          child: Container(
+            color: Colors.red,
+            child: DateTimeWidget(
+              key: _textKey,
+            ),
+          ),
         ),
       ),
     );
