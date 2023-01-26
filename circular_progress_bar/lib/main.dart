@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:math';
 
+import 'package:circular_progress_bar/circle_progress_painter.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -57,6 +57,16 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           width: 200,
           height: 200,
+          child: ValueListenableBuilder(
+            valueListenable: percent,
+            builder: (BuildContext context, double value, Widget? child) {
+              return CustomPaint(
+                painter: CircleProgressPainter(
+                  percent: value,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
