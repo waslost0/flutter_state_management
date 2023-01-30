@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:inherited_model/available_colors_widget.dart';
 import 'package:inherited_model/color_widget.dart';
+import 'package:inherited_model/consumer_example.dart';
 import 'package:inherited_model/iterable_extension.dart';
 
 final colors = [
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      home: const Example(),
     );
   }
 }
