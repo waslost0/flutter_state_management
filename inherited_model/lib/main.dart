@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inherited_model/available_colors_widget.dart';
 import 'package:inherited_model/color_widget.dart';
-import 'package:inherited_model/consumer_example.dart';
+import 'package:inherited_model/inherit_model_example.dart';
 import 'package:inherited_model/iterable_extension.dart';
+import 'package:inherited_model/simple_calc.dart';
 
 final colors = [
   Colors.orange,
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Example(),
+      home: const SimpleCalc(),
     );
   }
 }
