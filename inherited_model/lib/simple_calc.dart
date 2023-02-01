@@ -56,7 +56,7 @@ class FirstNumberWidget extends StatelessWidget {
     debugPrint("$runtimeType");
     return TextField(
       onChanged: (value) {
-        SimpleCalcWidgetProvider.getProvider(context)?.firstNumber = value;
+        SimpleCalcWidgetProvider.read(context)?.firstNumber = value;
       },
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
@@ -73,7 +73,7 @@ class SecondNumberWidget extends StatelessWidget {
     debugPrint("$runtimeType");
     return TextField(
       onChanged: (value) =>
-          SimpleCalcWidgetProvider.getProvider(context)?.secondNumber = value,
+          SimpleCalcWidgetProvider.read(context)?.secondNumber = value,
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
       ),
@@ -88,7 +88,7 @@ class SumButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint("$runtimeType");
     return ElevatedButton(
-      onPressed: () => SimpleCalcWidgetProvider.getProvider(context)?.sum(),
+      onPressed: () => SimpleCalcWidgetProvider.read(context)?.sum(),
       child: const Text('calc'),
     );
   }
@@ -100,7 +100,7 @@ class ResultWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint("$runtimeType");
-    final value = SimpleCalcWidgetProvider.of(context)?.sumResult ?? -1;
+    final value = SimpleCalcWidgetProvider.watch(context)?.sumResult ?? -1;
     return Text("$value");
   }
 }
@@ -136,13 +136,13 @@ class SimpleCalcWidgetProvider
     required super.child,
   }) : super(notifier: model);
 
-  static SimpleCalcWidgetModel? of(BuildContext context) {
+  static SimpleCalcWidgetModel? watch(BuildContext context) {
     return context
         .dependOnInheritedWidgetOfExactType<SimpleCalcWidgetProvider>()
         ?.notifier;
   }
 
-  static SimpleCalcWidgetModel? getProvider(BuildContext context) {
+  static SimpleCalcWidgetModel? read(BuildContext context) {
     // if do not need to subscribe for model change. FirstNumberWidget, SecondNumberWidget, SumButtonWidget
     return (context
             .getElementForInheritedWidgetOfExactType<SimpleCalcWidgetProvider>()
